@@ -15,154 +15,206 @@
 <meta property="og:site_name" content="Make Pluto Great Again">
 <meta property="og:url" content="https://makeplutogreatagain.com/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1e1730">
+<meta name="theme-color" content="#0b0c10">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="img/leader-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="img/leader-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wdth,wght@62.5,800&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  /* Game UI theme (scripts/ui/menu/ui_theme.gd + decree kit) */
   :root {
-    --night: #1e1730;
-    --night-deep: #150f23;
-    --ice: #c7b6e3;
-    --ice-dim: #8e7fae;
     --red: #b8323c;
     --red-dark: #6e1a22;
     --gold: #d4af37;
     --cream: #f1ede6;
     --paper: #e8dfc9;
-    --ink: #1a1420;
-    --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
-    --serif: "Source Serif 4", Georgia, serif;
+    --ink: #0b0c10;
+    --ink-soft: #3a352c;
+    --grey: #8a8f99;
+    --navy: #141826;
+    --slate: #4a4d55;
+    --kit-ink: #2a2118;
+    --kit-red: #8e1f26;
+    --kit-cream: #f8ead0;
+    --outline: #380810;
+    --title: "Noto Sans Display", "Arial Narrow", sans-serif;
+    --text: "Lato", "Helvetica Neue", Arial, sans-serif;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    background: var(--night);
+    background: var(--ink);
     color: var(--cream);
-    font: 400 1.125rem/1.65 var(--serif);
+    font: 400 1.1875rem/1.6 var(--text);
   }
   [hidden] { display: none !important; }
   img { display: block; max-width: 100%; height: auto; }
   a { color: var(--gold); }
   :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  p { margin: 0 0 1em; }
 
-  .wrap { width: min(100% - 32px, 68rem); margin-inline: auto; }
-  .measure { max-width: 38rem; }
+  .wrap { width: min(100% - 32px, 70rem); margin-inline: auto; }
+  .measure { max-width: 40rem; }
 
-  h2 {
-    font: 800 clamp(2.4rem, 6vw, 4.25rem)/0.95 var(--display);
-    letter-spacing: -0.005em;
-    color: var(--cream);
-    margin: 0 0 1.5rem;
+  /* Condensed extra-bold caps, cream with a dark red outline (TitleLabel) */
+  .t {
+    font-family: var(--title);
+    font-weight: 800;
+    font-stretch: 62.5%;
+    font-variation-settings: "wdth" 62.5, "wght" 800;
+    text-transform: uppercase;
+    letter-spacing: .01em;
+    line-height: .95;
   }
-  h3 { font: 800 1.6rem/1.05 var(--display); margin: 0 0 .4rem; color: var(--gold); }
-  p { margin: 0 0 1.1em; }
+  .t.outlined {
+    color: var(--kit-cream);
+    -webkit-text-stroke: .09em var(--outline);
+    paint-order: stroke fill;
+  }
+  h2.t { font-size: clamp(2.6rem, 6.5vw, 4.6rem); margin: 0 0 1.4rem; color: var(--gold); }
+  h3.t { font-size: 1.75rem; margin: 0 0 .45rem; color: var(--gold); }
+
+  /* Ribbon band: red with gold borders (RibbonPanel) */
+  .ribbon { background: var(--red); border-block: 3px solid var(--gold); }
+
+  /* Gold-bordered ink panel (PanelContainer) */
+  .panel { background: rgba(11, 12, 16, .94); border: 3px solid var(--gold); }
+
+  /* Star divider */
+  .star-rule { display: flex; align-items: center; gap: 14px; color: var(--gold); margin: 1.4rem 0; }
+  .star-rule::before, .star-rule::after { content: ""; flex: 1; height: 3px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .star-rule::after { background: linear-gradient(90deg, var(--gold), transparent); }
+  .star-rule svg { width: 26px; height: 26px; flex: none; }
 
   /* Hero */
-  .hero { background: var(--night-deep); }
-  .hero picture img { width: 100%; aspect-ratio: 1672 / 941; object-fit: cover; }
-  .pitch {
-    background: var(--red-dark);
-    border-top: 6px solid var(--gold);
-    padding: clamp(2.5rem, 6vw, 4.5rem) 0;
-  }
-  .pitch .wrap { display: grid; gap: 2rem; grid-template-columns: 1fr; align-items: end; }
-  @media (min-width: 820px) { .pitch .wrap { grid-template-columns: 1.6fr 1fr; gap: 4rem; } }
-  .pitch blockquote {
-    margin: 0;
-    font: 400 clamp(1.3rem, 2.4vw, 1.65rem)/1.45 var(--serif);
-    color: var(--paper);
-  }
-  .status { font: 600 1.35rem/1.2 var(--display); color: var(--gold); margin: 0; }
-  .status { font-size: clamp(1.8rem, 3.5vw, 2.4rem); line-height: 1; }
-  .status .os { display: block; font: 600 1.25rem/1.2 var(--display); color: var(--cream); margin-top: .5rem; }
-  .early { margin: 1.2rem 0 0; font-size: 1rem; color: var(--paper); font-style: italic; }
+  .hero { background: var(--ink); border-bottom: 3px solid var(--gold); }
+  .hero img { width: 100%; aspect-ratio: 1672 / 941; object-fit: cover; }
 
-  section { padding: clamp(4rem, 10vw, 7rem) 0; }
+  /* Pitch ribbon */
+  .pitch { padding: clamp(2.5rem, 6vw, 4rem) 0; }
+  .pitch .wrap { display: grid; gap: 2.5rem; grid-template-columns: 1fr; align-items: center; }
+  @media (min-width: 860px) { .pitch .wrap { grid-template-columns: 1.7fr 1fr; gap: 4rem; } }
+  .pitch blockquote { margin: 0; font-size: clamp(1.2rem, 2.2vw, 1.45rem); line-height: 1.5; color: var(--kit-cream); }
+
+  /* Rubber stamp (ui_theme.stamp) */
+  .stamp {
+    justify-self: center;
+    background: rgba(241, 237, 230, .92);
+    border: 6px solid var(--red);
+    padding: .9rem 1.3rem 1rem;
+    transform: rotate(-4deg);
+    text-align: center;
+    color: var(--red);
+    box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  }
+  .stamp .sub { font: 700 .95rem/1.2 var(--text); color: #93282f; }
+  .stamp .main { font-size: clamp(2.4rem, 5vw, 3.2rem); margin: .15rem 0 .3rem; color: var(--red); }
+  .stamp .os { font: 700 1rem/1.2 var(--text); color: var(--kit-ink); }
+  .early { margin: 1.2rem auto 0; max-width: 22rem; text-align: center; font-style: italic; color: var(--kit-cream); font-size: 1rem; }
+  .pitch .side { display: grid; justify-items: center; }
+
+  section { padding: clamp(4rem, 9vw, 6.5rem) 0; }
+  .navy { background: var(--navy); }
 
   /* The three rules */
-  .rules ol { list-style: none; padding: 0; margin: 2.5rem 0 2rem; border-top: 2px solid var(--ice-dim); }
+  .rules ol { list-style: none; padding: 0; margin: 2.2rem 0; }
   .rules li {
-    display: grid; grid-template-columns: 3.5rem 1fr auto; gap: 1rem; align-items: baseline;
-    padding: 1.1rem 0; border-bottom: 2px solid var(--ice-dim);
-    font: 600 clamp(1.5rem, 3.6vw, 2.4rem)/1.1 var(--display);
+    display: grid; grid-template-columns: 3rem 1fr auto; gap: 1rem; align-items: center;
+    padding: .9rem 1.2rem; margin-bottom: 10px;
   }
-  .rules li .n { color: var(--ice-dim); }
-  .rules li .v { font-size: .6em; color: var(--ice); white-space: nowrap; }
-  .rules li.fail { color: var(--ice-dim); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 4px; }
-  .rules li.fail .v { color: #ff6b74; text-decoration: none; display: inline-block; }
-  .rules .after { color: var(--ice); }
+  .rules li .n { font-size: 2rem; color: var(--gold); }
+  .rules li .what { font-size: clamp(1.6rem, 3.6vw, 2.3rem); color: var(--cream); }
+  .rules li .v { font: 700 1rem/1 var(--text); color: var(--gold); }
+  .rules li.fail { border-color: var(--red); }
+  .rules li.fail .what { color: var(--grey); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 5px; }
+  .rules li.fail .v { color: #ff8a7a; }
+  .rigged { font: italic 400 1.25rem/1.5 var(--text); color: #ff8a7a; }
 
-  /* Decree */
-  .decree-sec { background: var(--night-deep); }
-  .decree-grid { display: grid; gap: 3rem; grid-template-columns: 1fr; }
-  @media (min-width: 900px) { .decree-grid { grid-template-columns: 1fr 1.15fr; align-items: start; } }
+  /* Decree window (decree kit) */
+  .decree-intro { margin-bottom: 2.5rem; }
   .decree {
-    background: var(--paper); color: var(--ink);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    border: 1px solid #cbbf9f;
-    box-shadow: 0 0 0 6px var(--paper), 0 0 0 8px var(--red), 0 24px 50px -20px #000;
-    margin: 8px;
+    max-width: 62rem; margin: 0 auto;
+    background: var(--red);
+    border: 3px solid var(--gold);
+    padding: 10px;
+    box-shadow: 0 30px 60px -20px #000;
+  }
+  .plate {
     position: relative;
+    background: linear-gradient(180deg, #c33a44, var(--red) 55%, #9e2832);
+    border-block: 3px solid var(--gold);
+    text-align: center;
+    padding: 1.4rem 1rem 1.2rem;
   }
-  .decree .head { display: flex; justify-content: space-between; gap: 1rem; font: 600 1.05rem/1.2 var(--display); color: var(--red-dark); border-bottom: 2px solid var(--red-dark); padding-bottom: .6rem; margin-bottom: 1.2rem; }
-  .decree .order { font: 900 clamp(1.9rem, 4.5vw, 2.7rem)/1 var(--display); color: var(--red); margin: 0 0 .8rem; }
-  .decree .why { font-style: italic; margin-bottom: 1.6rem; }
-  .seal {
-    position: absolute; right: -14px; top: -22px; width: 74px; height: 74px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #d94b55, var(--red) 55%, var(--red-dark));
-    display: grid; place-items: center; transform: rotate(-12deg);
-    box-shadow: 0 4px 10px rgba(0,0,0,.35);
+  .plate .emblem { width: 64px; height: 64px; margin: 0 auto .5rem; display: block; }
+  .plate h3 { font-size: clamp(2rem, 5vw, 3rem); margin: 0; }
+  .parchment {
+    background: radial-gradient(ellipse at 50% 40%, #f6ead0, #ecdcb8 70%, #e0cc9f);
+    color: var(--kit-ink);
+    border: 3px solid var(--gold);
+    border-top: 0;
+    padding: clamp(1.2rem, 3.5vw, 2rem) clamp(1.2rem, 3.5vw, 2.2rem);
+    font-size: 1.1rem;
   }
-  @media (max-width: 600px) {
-    .seal { width: 56px; height: 56px; right: -4px; top: -30px; }
-    .seal svg { width: 30px; height: 30px; }
-    .decree .head { padding-right: 56px; }
+  .meta { font: 700 .82rem/1.3 var(--text); color: var(--kit-red); text-transform: uppercase; letter-spacing: .02em; margin-bottom: .6rem; }
+  .quote { font-style: italic; color: var(--kit-red); font-size: 1.15rem; margin: 0; }
+  .signed { font: 400 .85rem/1.3 var(--text); color: var(--ink-soft); margin-top: .3rem; }
+  .parchment .star-rule::before, .parchment .star-rule::after { height: 2px; }
+  .choices { display: grid; gap: 1.2rem; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .choices { grid-template-columns: repeat(3, 1fr); } }
+  .choice button {
+    width: 100%;
+    font: 700 1.2rem/1 var(--text);
+    color: var(--kit-cream);
+    text-shadow: 0 1px 0 var(--outline), 0 0 2px var(--outline);
+    background: linear-gradient(180deg, #c63a45, var(--red) 50%, #8f222c);
+    border: 3px solid var(--gold);
+    box-shadow: inset 0 0 0 2px var(--red-dark);
+    padding: .75rem 1rem .8rem;
+    cursor: pointer;
   }
-  .choices { display: grid; gap: .6rem; }
-  .choices button {
-    font: 800 1.35rem/1 var(--display); text-align: left;
-    padding: .9rem 1.1rem; cursor: pointer; border-radius: 3px;
-    border: 2px solid var(--ink); background: transparent; color: var(--ink);
-    display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+  .choice button:hover { filter: brightness(1.12); }
+  .choice button:active { filter: brightness(.85); }
+  .choice[data-c="paper"] button, .choice[data-c="refuse"] button { background: linear-gradient(180deg, #a63a43, #8a2a33 50%, #6e1a22); }
+  .choice .head { font-weight: 700; color: var(--kit-red); margin: .5rem 0 .2rem; font-size: 1rem; }
+  .choice .body { font-size: 1rem; line-height: 1.45; margin: 0; }
+  .outcome { font-size: 1.15rem; margin: 0 0 1rem; }
+  .next {
+    font: 700 1.1rem/1 var(--text); color: var(--kit-cream);
+    background: linear-gradient(180deg, #a63a43, #6e1a22); border: 3px solid var(--gold);
+    padding: .7rem 1.2rem; cursor: pointer;
   }
-  .choices button small { font: 400 .95rem/1.3 var(--serif); color: #4a3f50; text-align: right; }
-  .choices button:hover { background: var(--ink); color: var(--paper); }
-  .choices button:hover small { color: var(--ice); }
-  .choices button[data-c="obey"] { background: var(--red); border-color: var(--red); color: var(--cream); }
-  .choices button[data-c="obey"] small { color: #f6d7d9; }
-  .choices button[data-c="obey"]:hover { background: var(--red-dark); border-color: var(--red-dark); }
-  .outcome { min-height: 3.3em; margin: 1.3rem 0 0; font-size: 1.05rem; }
-  .outcome:empty { display: none; }
-  .next { margin-top: .4rem; font: 800 1.2rem/1 var(--display); background: var(--ink); color: var(--paper); border: 0; padding: .8rem 1.1rem; cursor: pointer; border-radius: 3px; }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; margin-top: 1.2rem; font-style: italic; font-size: .92rem; color: var(--ink-soft); }
 
-  .ledger { margin-top: 2rem; }
-  .ledger h3 { color: var(--ice); font-size: 1.3rem; }
-  .meter { margin: 1rem 0; }
-  .meter .lab { display: flex; justify-content: space-between; font: 600 1.15rem/1.2 var(--display); }
-  .meter .bar { height: 12px; background: #2d2444; margin-top: .35rem; position: relative; overflow: hidden; }
+  /* Ledger: ink track with gold border, coloured fill (HSlider) */
+  .ledger { margin: 2.5rem auto 0; max-width: 62rem; padding: 1.4rem 1.6rem; }
+  .ledger h3 { margin-bottom: .8rem; }
+  .meters { display: grid; gap: .9rem 2.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .meters { grid-template-columns: 1fr 1fr; } }
+  .meter .lab { display: flex; justify-content: space-between; font: 700 1rem/1.2 var(--text); }
+  .meter .lab span:last-child { color: var(--gold); }
+  .meter .bar { height: 14px; background: var(--ink); border: 2px solid var(--gold); margin-top: .35rem; position: relative; overflow: hidden; }
   .meter .fill { position: absolute; inset: 0 auto 0 0; width: 50%; transition: width .5s ease; }
   .meter.official .fill { background: var(--gold); }
-  .meter.real .fill { background: var(--ice); }
+  .meter.real .fill { background: #9fd3f0; }
   .meter.loyalty .fill { background: var(--red); }
-  .meter.warmth .fill { background: #e9a23b; }
-  .gap-note { font-size: .98rem; color: var(--ice); }
+  .meter.warmth .fill { background: #ffcf5a; }
+  .gap-note { font-size: 1rem; color: var(--grey); margin: 1rem 0 0; }
 
   /* Features */
-  .features ul { list-style: none; padding: 0; margin: 3rem 0 0; display: grid; gap: 2.5rem 4rem; grid-template-columns: 1fr; }
+  .features ul { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 16px; grid-template-columns: 1fr; }
   @media (min-width: 760px) { .features ul { grid-template-columns: 1fr 1fr; } }
-  .features li p { margin: 0; color: var(--paper); }
-  .features li { border-left: 4px solid var(--red); padding-left: 1.2rem; }
+  .features li { padding: 1.5rem 1.6rem; }
+  .features li p { margin: 0; color: var(--cream); }
 
-  /* Tagline band */
-  .band { background: var(--red); padding: clamp(3rem, 8vw, 5rem) 0; text-align: center; border-block: 6px solid var(--gold); }
-  .band p { font: 900 clamp(2.4rem, 8vw, 5.5rem)/0.95 var(--display); margin: 0; color: var(--cream); }
+  /* Closing ribbon */
+  .band { padding: clamp(2.5rem, 7vw, 4.5rem) 1rem; text-align: center; }
+  .band p { font-size: clamp(2.6rem, 8vw, 5.6rem); margin: 0; }
 
-  footer { padding: 3rem 0 4rem; color: var(--ice); font-size: 1rem; }
+  footer { padding: 2.5rem 0 3.5rem; color: var(--grey); font-size: .95rem; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 1rem 3rem; justify-content: space-between; }
   footer p { margin: 0; }
   footer .last { font-style: italic; }
@@ -171,6 +223,15 @@
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="star" viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.9 7.4.7-5.6 5 1.7 7.4L12 17.6l-6.6 3.9 1.7-7.4-5.6-5 7.4-.7z" fill="#d4af37" stroke="#6e1a22" stroke-width="1"/></symbol>
+  <symbol id="emblem" viewBox="0 0 64 64">
+    <circle cx="32" cy="30" r="13" fill="#d4af37" stroke="#6e1a22" stroke-width="1.5"/>
+    <ellipse cx="32" cy="30" rx="26" ry="7.5" fill="none" stroke="#d4af37" stroke-width="3.5" transform="rotate(-16 32 30)"/>
+    <path d="M32 47l2.2 4.6 5 .5-3.8 3.4 1.1 5-4.5-2.6-4.5 2.6 1.1-5-3.8-3.4 5-.5z" fill="#d4af37"/>
+  </symbol>
+</svg>
 
 <header class="hero">
   <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Make Pluto Great Again</h1>
@@ -181,30 +242,34 @@
   </picture>
 </header>
 
-<div class="pitch">
+<div class="pitch ribbon">
   <div class="wrap">
     <blockquote>Pluto was demoted by 400 astronomers in 2006. Now the Leader wants it back. As the only civil servant who can count, keep a frozen colony running, meet absurd decrees, fudge the numbers — and try not to notice who's really doing all the work.</blockquote>
-    <div class="status-block">
-      <p class="status">Download coming soon<span class="os">Windows, Linux and macOS</span></p>
+    <div class="side">
+      <div class="stamp">
+        <div class="sub">Download</div>
+        <div class="main t">Coming soon</div>
+        <div class="os">Windows, Linux and macOS</div>
+      </div>
       <p class="early">The game is in development. Early development. Sooooooooooo early that Pluto is still a planet.</p>
     </div>
   </div>
 </div>
 
 <main>
-  <section class="rules">
+  <section class="rules navy">
     <div class="wrap">
-      <h2>Two out of three is not enough.</h2>
+      <h2 class="t">Two out of three is not enough</h2>
       <div class="measure">
         <p>In 2006, astronomers meeting in Prague voted on what makes a planet. About 2,000 of them were supposed to vote. Most had already gone home. The 400 who stayed decided for everyone. Three rules. Pluto met two.</p>
-        <p>The Leader has seen the numbers. It was rigged.</p>
+        <p class="rigged">The Leader has seen the numbers. It was rigged.</p>
       </div>
       <ol>
-        <li><span class="n">1</span><span>Orbits the Sun</span><span class="v">Passed</span></li>
-        <li><span class="n">2</span><span>Is round</span><span class="v">Passed</span></li>
-        <li class="fail"><span class="n">3</span><span>Has cleared its neighbourhood</span><span class="v">Failed</span></li>
+        <li class="panel"><span class="n t">1</span><span class="what t">Orbits the Sun</span><span class="v">Passed</span></li>
+        <li class="panel"><span class="n t">2</span><span class="what t">Is round</span><span class="v">Passed</span></li>
+        <li class="panel fail"><span class="n t">3</span><span class="what t">Has cleared its neighbourhood</span><span class="v">Failed</span></li>
       </ol>
-      <div class="measure after">
+      <div class="measure">
         <p>Centuries later, the Human Confederation rules the Solar System. Planets get a seat, a vote and their own ice. Dwarfs pay tax.</p>
         <p>The Great Gravitas, Pluto's Leader, wants the title back. He reads "clear the neighbourhood" as housekeeping and blames the Kuipers, migrants from the Belt, for everything. The Kuipers are the ones keeping the colony alive.</p>
       </div>
@@ -212,55 +277,66 @@
   </section>
 
   <section class="decree-sec" aria-labelledby="decree-h">
-    <div class="wrap decree-grid">
-      <div>
-        <h2 id="decree-h">They voted. We counted. Again.</h2>
+    <div class="wrap">
+      <div class="decree-intro">
+        <h2 class="t" id="decree-h">They voted. We counted. Again.</h2>
         <div class="measure">
-          <p>You cut ice, haul it to the depots and feed the Mass Accretor, block by block, until Pluto is heavy enough to count. Then the decrees arrive.</p>
-          <p>Every decree gives you three options. Obey, and pay the price. Obey on paper, and hope nobody audits the report. Or refuse, and watch your loyalty drop.</p>
-          <p>Try one below.</p>
-        </div>
-        <div class="ledger" aria-live="polite">
-          <h3>Ministry ledger</h3>
-          <div class="meter official"><div class="lab"><span>Official mass</span><span id="v-official">50%</span></div><div class="bar"><div class="fill" id="f-official"></div></div></div>
-          <div class="meter real"><div class="lab"><span>Real mass</span><span id="v-real">50%</span></div><div class="bar"><div class="fill" id="f-real"></div></div></div>
-          <div class="meter loyalty"><div class="lab"><span>Loyalty</span><span id="v-loyalty">50%</span></div><div class="bar"><div class="fill" id="f-loyalty"></div></div></div>
-          <div class="meter warmth"><div class="lab"><span>Colonists kept warm</span><span id="v-warmth">50%</span></div><div class="bar"><div class="fill" id="f-warmth"></div></div></div>
-          <p class="gap-note" id="gap"></p>
+          <p>You cut ice, haul it to the depots and feed the Mass Accretor, block by block, until Pluto is heavy enough to count. Then the decrees arrive. Obey, and pay the price. Obey on paper, and hope nobody audits the report. Or refuse, and watch your loyalty drop.</p>
+          <p>Try one.</p>
         </div>
       </div>
 
       <article class="decree" aria-labelledby="d-order">
-        <div class="seal" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="9" fill="#d4af37"/><ellipse cx="20" cy="20" rx="17" ry="5" fill="none" stroke="#d4af37" stroke-width="2.5" transform="rotate(-18 20 20)"/></svg>
+        <div class="plate">
+          <svg class="emblem" aria-hidden="true"><use href="#emblem"/></svg>
+          <h3 class="t outlined" id="d-order"></h3>
         </div>
-        <div class="head"><span>Decree of the Great Gravitas</span><span id="d-num">No. 1 of 4</span></div>
-        <p class="order" id="d-order"></p>
-        <p class="why" id="d-why"></p>
-        <div class="choices" id="choices">
-          <button data-c="obey">Obey <small id="h-obey"></small></button>
-          <button data-c="paper">Obey on paper <small>Fudge the report</small></button>
-          <button data-c="refuse">Refuse <small>Lose loyalty</small></button>
+        <div class="parchment">
+          <div class="meta" id="d-meta"></div>
+          <p id="d-text"></p>
+          <p class="quote" id="d-quote"></p>
+          <div class="signed">The Great Gravitas, Leader of the Plutonian people</div>
+          <div class="star-rule" aria-hidden="true"><svg><use href="#star"/></svg></div>
+
+          <div class="choices" id="choices">
+            <div class="choice" data-c="obey"><button>Obey</button><p class="head" id="h-obey"></p><p class="body" id="b-obey"></p></div>
+            <div class="choice" data-c="paper"><button>Obey on paper</button><p class="head">The report says yes. Reality says no.</p><p class="body" id="b-paper"></p></div>
+            <div class="choice" data-c="refuse"><button>Refuse</button><p class="head">The colony is spared. The Leader remembers.</p><p class="body" id="b-refuse"></p></div>
+          </div>
+          <div id="after" hidden>
+            <p class="outcome" id="outcome"></p>
+            <button class="next" id="next">Next decree</button>
+          </div>
+          <div class="foot"><span>The colony waits while you read.</span><span id="d-num"></span></div>
         </div>
-        <p class="outcome" id="outcome"></p>
-        <button class="next" id="next" hidden>Next decree</button>
       </article>
+
+      <div class="ledger panel" aria-live="polite">
+        <h3 class="t">Ministry ledger</h3>
+        <div class="meters">
+          <div class="meter official"><div class="lab"><span>Official mass</span><span id="v-official">50%</span></div><div class="bar"><div class="fill" id="f-official"></div></div></div>
+          <div class="meter real"><div class="lab"><span>Real mass</span><span id="v-real">50%</span></div><div class="bar"><div class="fill" id="f-real"></div></div></div>
+          <div class="meter loyalty"><div class="lab"><span>Loyalty</span><span id="v-loyalty">50%</span></div><div class="bar"><div class="fill" id="f-loyalty"></div></div></div>
+          <div class="meter warmth"><div class="lab"><span>Colonists kept warm</span><span id="v-warmth">50%</span></div><div class="bar"><div class="fill" id="f-warmth"></div></div></div>
+        </div>
+        <p class="gap-note" id="gap"></p>
+      </div>
     </div>
   </section>
 
-  <section class="features">
+  <section class="features navy">
     <div class="wrap">
-      <h2>Some planets are born. Ours will be re&#8209;elected.</h2>
+      <h2 class="t">Some planets are born. Ours will be re&#8209;elected.</h2>
       <ul>
-        <li><h3>Become a planet again</h3><p>Grow Pluto's mass one ice block at a time until it finally clears the neighbourhood.</p></li>
-        <li><h3>Decrees that break your colony</h3><p>Obey, obey on paper or refuse. Every choice costs you something.</p></li>
-        <li><h3>Fudge the numbers</h3><p>The official mass and the real mass drift apart, and every lie on paper risks an audit.</p></li>
-        <li><h3>Scapegoats do the work</h3><p>A satire of scapegoating politics. The people the regime blames are the ones holding the colony together.</p></li>
+        <li class="panel"><h3 class="t">Become a planet again</h3><p>Grow Pluto's mass one ice block at a time until it finally clears the neighbourhood.</p></li>
+        <li class="panel"><h3 class="t">Decrees that break your colony</h3><p>Obey, obey on paper or refuse. Every choice costs you something.</p></li>
+        <li class="panel"><h3 class="t">Fudge the numbers</h3><p>The official mass and the real mass drift apart, and every lie on paper risks an audit.</p></li>
+        <li class="panel"><h3 class="t">Scapegoats do the work</h3><p>A satire of scapegoating politics. The people the regime blames are the ones holding the colony together.</p></li>
       </ul>
     </div>
   </section>
 
-  <div class="band"><p>Further reading is mandatory.</p></div>
+  <div class="band ribbon"><p class="t outlined">Further reading is mandatory</p></div>
 </main>
 
 <footer>
@@ -273,24 +349,41 @@
 <script>
 (() => {
   const decrees = [
-    { order: "Switch off the heaters.", why: "The cold is a hoax invented by the astronomers.", obeyHint: "Colonists freeze",
-      obey:   { t: "The heaters go off. Loyalty is up, and the colonists are wearing every coat they own.", d: { loyalty: 15, warmth: -30 } },
-      paper:  { t: "The report says the heaters are off. They're still running. An auditor makes a note.", d: { loyalty: 5, audit: 1 } },
-      refuse: { t: "The heaters stay on. The Ministry notices too.", d: { loyalty: -20 } } },
-    { order: "Tariffs on Belt ice.", why: "Foreign ice is stealing jobs from local ice.", obeyHint: "Less ice arrives",
-      obey:   { t: "Kuiper haulers stop coming. Real mass stalls, and the Leader calls it a victory.", d: { loyalty: 10, real: -10, official: 5 } },
-      paper:  { t: "The tariff is on the books and nobody collects it. The ice keeps arriving.", d: { loyalty: 5, real: 10, official: 10, audit: 1 } },
-      refuse: { t: "The ice keeps flowing. Your file at the Ministry gets thicker.", d: { loyalty: -15, real: 10, official: 10 } } },
-    { order: "Build the wall.", why: "To keep the neighbourhood cleared.", obeyHint: "Ice goes into the wall",
-      obey:   { t: "Ten thousand blocks of ice go into a wall around nothing. It looks great in photos.", d: { loyalty: 15, real: -15, official: 10 } },
-      paper:  { t: "The wall exists in the report. In the photos, it's a very good painting.", d: { loyalty: 5, official: 15, audit: 1 } },
-      refuse: { t: "The ice goes into the Accretor instead. The Leader is not pleased.", d: { loyalty: -20, real: 15, official: 15 } } },
-    { order: "Close the observatory.", why: "Telescopes keep producing unpatriotic numbers.", obeyHint: "Nobody can check",
-      obey:   { t: "The observatory is closed. Pluto's mass is now whatever the Leader says it is.", d: { loyalty: 15, official: 20 } },
-      paper:  { t: "The sign says closed. The night shift keeps measuring, quietly.", d: { loyalty: 5, audit: 1 } },
-      refuse: { t: "The telescopes stay on. The numbers stay true, and unpopular.", d: { loyalty: -20 } } }
+    { order: "Switch off the heaters",
+      text: "The Department of Atmospheric Truth has concluded that the cold is a hoax invented by the Human Confederation to sell heaters. All heaters are to be switched off until the hoax is over.",
+      quote: "“Real Plutonians are warm on the inside. Very warm. People are saying it.”",
+      obeyHead: "Loyalty up. The colony pays.", obey: "Heaters off. Anyone working far from a Hab dome will freeze.",
+      paper: "Report the heaters as switched off. They keep running.", refuse: "Keep the heaters on and say so in writing.",
+      r: { obey:   { t: "The heaters go off. Loyalty is up, and the colonists are wearing every coat they own.", d: { loyalty: 15, warmth: -30 } },
+           paper:  { t: "The report says the heaters are off. They're still running. An auditor makes a note.", d: { loyalty: 5, audit: 1 } },
+           refuse: { t: "The heaters stay on. The Ministry notices too.", d: { loyalty: -20 } } } },
+    { order: "Tariffs on Belt ice",
+      text: "Foreign ice is stealing jobs from local ice. From this shift, every block hauled in from the Belt pays the Patriotic Ice Tariff.",
+      quote: "“The Belt has been taking advantage of us for a very long time. Not anymore.”",
+      obeyHead: "Loyalty up. Less ice arrives.", obey: "Kuiper haulers stop coming. Real mass stalls.",
+      paper: "Put the tariff on the books. Collect nothing.", refuse: "Keep the ice flowing, tariff-free.",
+      r: { obey:   { t: "Kuiper haulers stop coming. Real mass stalls, and the Leader calls it a victory.", d: { loyalty: 10, real: -10, official: 5 } },
+           paper:  { t: "The tariff is on the books and nobody collects it. The ice keeps arriving.", d: { loyalty: 5, real: 10, official: 10, audit: 1 } },
+           refuse: { t: "The ice keeps flowing. Your file at the Ministry gets thicker.", d: { loyalty: -15, real: 10, official: 10 } } } },
+    { order: "Build the wall",
+      text: "To clear the neighbourhood, a wall will be raised around it. The wall will be built of ice, and the ice will come from the Accretor.",
+      quote: "“A beautiful wall. The most beautiful wall in the outer Solar System.”",
+      obeyHead: "Loyalty up. The Accretor starves.", obey: "Thousands of blocks go into a wall instead of into Pluto.",
+      paper: "Report the wall as finished. Build nothing.", refuse: "Send the ice to the Accretor anyway.",
+      r: { obey:   { t: "Ten thousand blocks of ice go into a wall around nothing. It looks great in photos.", d: { loyalty: 15, real: -15, official: 10 } },
+           paper:  { t: "The wall exists in the report. In the photos, it's a very good painting.", d: { loyalty: 5, official: 15, audit: 1 } },
+           refuse: { t: "The ice goes into the Accretor instead. The Leader is not pleased.", d: { loyalty: -20, real: 15, official: 15 } } } },
+    { order: "Close the observatory",
+      text: "The observatory keeps producing unpatriotic numbers. It is closed until the numbers improve.",
+      quote: "“If we stop measuring, we stop losing. Very simple.”",
+      obeyHead: "Loyalty up. Nobody can check.", obey: "Pluto's mass becomes whatever the Leader says it is.",
+      paper: "Hang a 'closed' sign. Keep the night shift measuring.", refuse: "Keep the telescopes on.",
+      r: { obey:   { t: "The observatory is closed. Pluto's mass is now whatever the Leader says it is.", d: { loyalty: 15, official: 20 } },
+           paper:  { t: "The sign says closed. The night shift keeps measuring, quietly.", d: { loyalty: 5, audit: 1 } },
+           refuse: { t: "The telescopes stay on. The numbers stay true, and unpopular.", d: { loyalty: -20 } } } }
   ];
-  const s = { official: 50, real: 50, loyalty: 50, warmth: 50, audit: 0 };
+  const start = { official: 50, real: 50, loyalty: 50, warmth: 50, audit: 0 };
+  const s = { ...start };
   let i = 0;
   const $ = id => document.getElementById(id);
   const clamp = v => Math.max(0, Math.min(100, v));
@@ -308,31 +401,36 @@
   }
   function show() {
     const d = decrees[i];
-    $("d-num").textContent = `No. ${i + 1} of ${decrees.length}`;
     $("d-order").textContent = d.order;
-    $("d-why").textContent = d.why;
-    $("h-obey").textContent = d.obeyHint;
-    $("outcome").textContent = "";
+    $("d-meta").textContent = `Decree No. ${i + 1} — Office of the Great Gravitas`;
+    $("d-text").textContent = d.text;
+    $("d-quote").textContent = d.quote;
+    $("h-obey").textContent = d.obeyHead;
+    $("b-obey").textContent = d.obey;
+    $("b-paper").textContent = d.paper;
+    $("b-refuse").textContent = d.refuse;
+    $("d-num").textContent = `${i + 1} of ${decrees.length}`;
     $("choices").hidden = false;
-    $("next").hidden = true;
+    $("after").hidden = true;
   }
   $("choices").addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
-    const r = decrees[i][b.dataset.c];
+    const r = decrees[i].r[b.parentElement.dataset.c];
     for (const [k, v] of Object.entries(r.d)) s[k] = k === "audit" ? s[k] + v : clamp(s[k] + v);
-    $("outcome").textContent = r.t;
-    $("choices").hidden = true;
     const last = i === decrees.length - 1;
-    $("next").hidden = false;
-    $("next").textContent = last ? "Start over" : "Next decree";
-    if (last) $("outcome").textContent += s.audit >= 3
+    let t = r.t;
+    if (last) t += s.audit >= 3
       ? " The auditors are on their way. In the full game, they arrive."
       : " Term complete. Pluto is still a dwarf. The Leader has another plan.";
+    $("outcome").textContent = t;
+    $("next").textContent = last ? "Start over" : "Next decree";
+    $("choices").hidden = true;
+    $("after").hidden = false;
     render();
     $("next").focus();
   });
   $("next").addEventListener("click", () => {
-    if (i === decrees.length - 1) { Object.assign(s, { official: 50, real: 50, loyalty: 50, warmth: 50, audit: 0 }); i = 0; render(); }
+    if (i === decrees.length - 1) { Object.assign(s, start); i = 0; render(); }
     else i++;
     show();
     $("choices").querySelector("button").focus();
