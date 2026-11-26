@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Make Pluto Great Again</title>
-<meta name="description" content="Pluto was demoted by 400 astronomers in 2006. Now the Leader wants it back. A colony-logistics game of absurd decrees and fudged numbers. Coming soon to Windows, Linux and macOS.">
+<title>Make Pluto Great Again – a satirical colony-building game</title>
+<meta name="description" content="A satirical colony-building game. Pluto was demoted by 400 astronomers in 2006. Now the Leader wants it back. A colony-logistics game of absurd decrees and fudged numbers. Coming soon to Windows, Linux and macOS.">
 <meta property="og:title" content="Make Pluto Great Again">
-<meta property="og:description" content="Build the colony. Survive the decrees. Become a planet again.">
+<meta property="og:description" content="A satirical colony-building game. Build the colony. Survive the decrees. Become a planet again. Coming soon to Windows, Linux and macOS.">
 <meta property="og:image" content="https://makeplutogreatagain.com/img/og.jpg">
 <meta property="og:type" content="website">
 <meta property="og:image:width" content="1200">
@@ -97,6 +97,9 @@
   .pitch { padding: clamp(2.5rem, 6vw, 4rem) 0; }
   .pitch .wrap { display: grid; gap: 2.5rem; grid-template-columns: 1fr; align-items: center; }
   @media (min-width: 860px) { .pitch .wrap { grid-template-columns: 1.7fr 1fr; gap: 4rem; } }
+  .t.kicker { font-size: clamp(2.2rem, 5vw, 3.4rem); margin: 0 0 1rem; }
+  .tags { list-style: none; padding: 0; margin: 1.4rem 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags li { font: 700 .95rem/1 var(--text); color: var(--kit-cream); background: var(--red-dark); border: 2px solid var(--gold); padding: .45rem .7rem; }
   .pitch blockquote { margin: 0; font-size: clamp(1.2rem, 2.2vw, 1.45rem); line-height: 1.5; color: var(--kit-cream); }
 
   /* Rubber stamp (ui_theme.stamp) */
@@ -244,7 +247,13 @@
 
 <div class="pitch ribbon">
   <div class="wrap">
-    <blockquote>Pluto was demoted by 400 astronomers in 2006. Now the Leader wants it back. As the only civil servant who can count, keep a frozen colony running, meet absurd decrees, fudge the numbers — and try not to notice who's really doing all the work.</blockquote>
+    <div class="intro">
+      <h2 class="t outlined kicker">A colony-building game</h2>
+      <blockquote>Pluto was demoted by 400 astronomers in 2006. Now the Leader wants it back. As the only civil servant who can count, keep a frozen colony running, meet absurd decrees, fudge the numbers — and try not to notice who's really doing all the work.</blockquote>
+      <ul class="tags" aria-label="Genres">
+        <li>Colony sim</li><li>City builder</li><li>Management</li><li>Logistics</li><li>Strategy</li><li>Political satire</li><li>Isometric</li><li>Single-player</li>
+      </ul>
+    </div>
     <div class="side">
       <div class="stamp">
         <div class="sub">Download</div>
@@ -341,7 +350,7 @@
 
 <footer>
   <div class="wrap">
-    <p>Make Pluto Great Again is in development.<br>Download coming soon for Windows, Linux and macOS.</p>
+    <p>Make Pluto Great Again is a game in development.<br>Download coming soon for Windows, Linux and macOS.</p>
     <p class="last">A work of satire. Any resemblance to a planet is under review.</p>
   </div>
 </footer>
