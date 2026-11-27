@@ -222,7 +222,59 @@
   footer p { margin: 0; }
   footer .last { font-style: italic; }
 
-  @media (prefers-reduced-motion: reduce) { .meter .fill { transition: none; } }
+  /* Top bar */
+  html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+  .topbar { position: sticky; top: 0; z-index: 10; background: rgba(11, 12, 16, .96); border-bottom: 3px solid var(--gold); }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: .4rem 1.5rem; flex-wrap: wrap; padding: .55rem 0; }
+  .topbar .brand { font-size: 1.45rem; color: var(--gold); text-decoration: none; }
+  .topbar ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .2rem 1.3rem; }
+  .topbar ul a { font: 700 .95rem/1.6 var(--text); color: var(--cream); text-decoration: none; }
+  .topbar ul a:hover { color: var(--gold); }
+  @media (max-width: 520px) { .topbar .brand { display: none; } .topbar .wrap { justify-content: center; } }
+
+  /* What it is / goal */
+  .split { display: grid; gap: 2.5rem; grid-template-columns: 1fr; align-items: start; }
+  @media (min-width: 860px) { .split { grid-template-columns: 1.4fr 1fr; gap: 4rem; } }
+  .goal { padding: 1.6rem 1.7rem; }
+  .goal p { margin: 0 0 .8rem; }
+  .goal p:last-child { margin: 0; }
+  .goal .big { font-size: 1.3rem; color: var(--kit-cream); }
+  .lose { margin: 0; padding-left: 1.2rem; }
+  .lose li { margin-bottom: .4rem; }
+
+  /* Steps */
+  .steps { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 16px; grid-template-columns: 1fr; counter-reset: step; }
+  @media (min-width: 760px) { .steps { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1100px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps li { padding: 1.4rem 1.5rem; counter-increment: step; }
+  .steps li::before { content: counter(step); display: block; font: 800 2.6rem/1 var(--title); font-stretch: 62.5%; font-variation-settings: "wdth" 62.5, "wght" 800; color: var(--red); margin-bottom: .4rem; }
+  .steps li p { margin: 0; font-size: 1.05rem; }
+
+  /* Download */
+  .platforms { display: grid; gap: 16px; grid-template-columns: 1fr; margin: 2.5rem 0 0; }
+  @media (min-width: 980px) { .platforms { grid-template-columns: repeat(3, 1fr); } }
+  .platform { padding: 1.4rem 1.5rem; display: flex; flex-direction: column; }
+  .platform .arch { font: 700 .9rem/1.3 var(--text); color: var(--grey); margin: 0 0 1rem; }
+  .platform ol { margin: 0 0 1rem; padding-left: 1.3rem; font-size: 1.02rem; }
+  .platform li { margin-bottom: .5rem; }
+  .platform .soon { margin-top: auto; align-self: flex-start; font: 700 .95rem/1 var(--text); color: var(--kit-cream); background: var(--red-dark); border: 2px solid var(--gold); padding: .55rem .8rem; }
+  .platform .note { font-size: .98rem; color: var(--cream); border-left: 3px solid var(--red); padding-left: .8rem; }
+  code, pre { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .88rem; }
+  code { background: var(--navy); border: 1px solid var(--slate); padding: .05rem .3rem; }
+  pre { background: var(--navy); border: 1px solid var(--slate); padding: .7rem .8rem; margin: .4rem 0 0; white-space: pre-wrap; overflow-x: auto; color: var(--kit-cream); }
+  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+  .after-dl { margin-top: 2rem; }
+
+  /* FAQ */
+  .faq details { border-bottom: 2px solid var(--slate); padding: 1rem 0; }
+  .faq details:first-of-type { border-top: 2px solid var(--slate); }
+  .faq summary { cursor: pointer; font: 700 1.2rem/1.4 var(--text); color: var(--kit-cream); list-style: none; display: flex; gap: .8rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::before { content: "+"; color: var(--gold); font-weight: 700; width: 1rem; flex: none; }
+  .faq details[open] summary::before { content: "–"; }
+  .faq details p { margin: .7rem 0 0 1.8rem; }
+
+  @media (prefers-reduced-motion: reduce) { .meter .fill { transition: none; } html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
@@ -236,7 +288,19 @@
   </symbol>
 </svg>
 
-<header class="hero">
+<nav class="topbar" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand t" href="#top">Make Pluto Great Again</a>
+    <ul>
+      <li><a href="#game">The game</a></li>
+      <li><a href="#how">How to play</a></li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
   <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Make Pluto Great Again</h1>
   <picture>
     <source srcset="img/key-art.webp" type="image/webp">
@@ -285,13 +349,48 @@
     </div>
   </section>
 
+  <section id="game" aria-labelledby="game-h">
+    <div class="wrap split">
+      <div>
+        <h2 class="t" id="game-h">What the game is</h2>
+        <p>Make Pluto Great Again is a single-player colony-building and management game, seen in isometric view, set on a frozen Pluto.</p>
+        <p>You play a civil servant at the Department of Orbital Hygiene. You don't control anyone directly. You place the buildings and the colony runs itself: Plutonians and Kuipers cut the ice, haul it to the depots and build whatever you place.</p>
+        <p>Then the Leader sends a decree. Decrees are not written with your colony in mind. You decide what to do with each one, and you live with the consequences.</p>
+        <p class="rigged">Leaders are to be followed. Civil servants who disagree are reassigned. Nobody has seen where.</p>
+      </div>
+      <div class="goal panel">
+        <h3 class="t">The goal</h3>
+        <p class="big">Make Pluto heavy enough to be a planet again.</p>
+        <p>Cut ice and feed it to the Mass Accretor, block by block. The Planethood meter tracks Pluto's mass against what it needs to clear its neighbourhood. Get there and the astronomers have to vote again.</p>
+        <p class="big">And don't let your colony die.</p>
+        <p>Plutonians and Kuipers are built from Pluto itself: bones of water ice, blood of liquid nitrogen. It flows between 63 and 77 kelvin (−210 to −196 °C, −346 to −321 °F). Pluto is 40 kelvin (−233 °C, −388 °F). Out in the open a colonist slows down, then freezes solid, and if nobody warms them up, they die. Put heaters near the work and hab domes near the heaters. No free beds, no new arrivals.</p>
+        <p>You lose if:</p>
+        <ul class="lose">
+          <li>your loyalty hits zero and you are "reassigned" (fudged reports help, until an audit catches them);</li>
+          <li>the colony is lost: no colonists left, or no Ministry.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="navy" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 class="t" id="how-h">How to play</h2>
+      <ol class="steps">
+        <li class="panel"><h3 class="t">Build</h3><p>Place ice quarries, depots, heaters, hab domes and the Mass Accretor. Keep everyone warm: a colonist left in the cold freezes to death.</p></li>
+        <li class="panel"><h3 class="t">Let it run</h3><p>Colonists pick up the jobs on their own. Watch the ice flow, find the bottlenecks, fix them.</p></li>
+        <li class="panel"><h3 class="t">Handle the decree</h3><p>Obey and the colony takes the hit. Obey on paper and the numbers drift apart. Refuse and your loyalty drops.</p></li>
+        <li class="panel"><h3 class="t">Meet the quota</h3><p>Every few shifts the Ministry reports Pluto's official mass. Miss the Leader's quota and you lose loyalty. Obeying on paper inflates the official figure. The real one is in the report too.</p></li>
+      </ol>
+    </div>
+  </section>
+
   <section class="decree-sec" aria-labelledby="decree-h">
     <div class="wrap">
       <div class="decree-intro">
         <h2 class="t" id="decree-h">They voted. We counted. Again.</h2>
         <div class="measure">
-          <p>You cut ice, haul it to the depots and feed the Mass Accretor, block by block, until Pluto is heavy enough to count. Then the decrees arrive. Obey, and pay the price. Obey on paper, and hope nobody audits the report. Or refuse, and watch your loyalty drop.</p>
-          <p>Try one.</p>
+          <p>This is what a decree looks like. Try one, and keep an eye on the ledger.</p>
         </div>
       </div>
 
@@ -343,6 +442,73 @@
         <li class="panel"><h3 class="t">Scapegoats do the work</h3><p>A satire of scapegoating politics. The people the regime blames are the ones holding the colony together.</p></li>
       </ul>
     </div>
+  </section>
+
+  <section id="download" aria-labelledby="dl-h">
+    <div class="wrap">
+      <h2 class="t" id="dl-h">Download and install</h2>
+      <div class="measure"><p>Not out yet. When it is, the downloads will be here. Until then, this is how installing it will work.</p></div>
+      <div class="platforms">
+        <div class="platform panel">
+          <h3 class="t">Windows</h3>
+          <p class="arch">Windows 10 or later, 64-bit</p>
+          <ol>
+            <li>Unzip the <code>.zip</code> file.</li>
+            <li>Run <code>MakePlutoGreatAgain.exe</code>.</li>
+          </ol>
+          <p class="note">If Windows says "Windows protected your PC", click <b>More info</b>, then <b>Run anyway</b>.</p>
+          <span class="soon">Coming soon</span>
+        </div>
+        <div class="platform panel">
+          <h3 class="t">macOS</h3>
+          <p class="arch">Apple Silicon and Intel</p>
+          <ol>
+            <li>Unzip the file and drag <b>Make Pluto Great Again</b> into Applications.</li>
+            <li>The first time, macOS will say the app "is damaged" or "can't be opened". It isn't damaged: it just isn't notarized by Apple. Open Terminal and run:
+              <pre><code>xattr -dr com.apple.quarantine "/Applications/Make Pluto Great Again.app"</code></pre></li>
+            <li>Open it as usual.</li>
+          </ol>
+          <span class="soon">Coming soon</span>
+        </div>
+        <div class="platform panel">
+          <h3 class="t">Linux</h3>
+          <p class="arch">x86_64</p>
+          <ol>
+            <li>Extract and run it:
+              <pre><code>tar xzf MakePlutoGreatAgain-*-linux.tar.gz
+chmod +x MakePlutoGreatAgain.x86_64
+./MakePlutoGreatAgain.x86_64</code></pre></li>
+          </ol>
+          <span class="soon">Coming soon</span>
+        </div>
+      </div>
+      <div class="measure after-dl">
+        <p>Requirements: any computer with OpenGL&nbsp;3.3, which is almost anything from the last ten years.</p>
+        <p>The game tells you when a new version is out.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="navy faq" aria-labelledby="faq-h">
+    <div class="wrap"><div class="measure">
+      <h2 class="t" id="faq-h">FAQ</h2>
+      <details>
+        <summary>When can I play it?</summary>
+        <p>When it's ready. It's early. Very early. Come back soon.</p>
+      </details>
+      <details>
+        <summary>Why do Windows and macOS warn me about it?</summary>
+        <p>Because the game isn't signed with a paid certificate from Microsoft or Apple. That's normal for small independent games. The steps above get you past the warning.</p>
+      </details>
+      <details>
+        <summary>Is it about real politicians?</summary>
+        <p>No. It's a satire of scapegoating politics, and everyone in it is invented: the Leader, the Plutonians, the Kuipers and every slogan. The joke is always on the regime, never on the people it blames.</p>
+      </details>
+      <details>
+        <summary>Is there combat?</summary>
+        <p>No. Your weapons are ice, forms and creative accounting.</p>
+      </details>
+    </div></div>
   </section>
 
   <div class="band ribbon"><p class="t outlined">Further reading is mandatory</p></div>
